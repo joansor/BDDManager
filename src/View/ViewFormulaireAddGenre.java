@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class ViewFormulaireAddGenre {
@@ -40,7 +41,7 @@ public class ViewFormulaireAddGenre {
     public void initTitre() {
         titre = new Text(20, 50, "Insérer un nouveau genre");
         titre.setFont(new Font(30));
-        sousTitre = new Text(20,170,"Liste des Genres existant : ");
+        sousTitre = new Text(20, 170, "Liste des Genres existant : ");
         sousTitre.setFont(new Font(20));
     }
 
@@ -60,21 +61,21 @@ public class ViewFormulaireAddGenre {
         inputGenre.setTranslateY(100);
     }
 
-    public void initComboBox(){
+    public void initComboBox() {
 
         comboGenres = new ComboBox<>();
         comboGenres.setTranslateX(260);
         comboGenres.setTranslateY(150);
         bddManager = new BDDManager();
-        bddManager.start("jdbc:mysql://localhost:3306/dvdtheque","root","");
+        bddManager.start("jdbc:mysql://localhost:3306/dvdtheque", "root", "");
         String requete = "SELECT * FROM genre";
-        ArrayList <ArrayList<String>> listResult = bddManager.select(requete);
+        ArrayList<ArrayList<String>> listResult = bddManager.select(requete);
 
         for (int i = 0; i < listResult.size(); i++) {
 
             System.out.println(listResult.get(i));
 
-            comboGenres.getItems().add(String.valueOf(listResult.get(i).get(0))+" "+(String.valueOf(listResult.get(i).get(1))));
+            comboGenres.getItems().add(String.valueOf(listResult.get(i).get(0)) + " " + (String.valueOf(listResult.get(i).get(1))));
 
         }
         System.out.println(bddManager.select(requete));
@@ -94,12 +95,20 @@ public class ViewFormulaireAddGenre {
                 String valueInput = getInputGenre().getText();
                 System.out.println(valueInput);
                 bddManager = new BDDManager();
-                bddManager.start("jdbc:mysql://localhost:3306/dvdtheque","root","");
-                String requete = "INSERT INTO `genre`(`Libelle_Genre`) VALUES ('" + valueInput + "')";
-                System.out.println(requete);
-                bddManager.insert(requete);
-                bddManager.stop();
+                bddManager.start("jdbc:mysql://localhost:3306/dvdtheque", "root", "");
+                String requeteSelect = "SELECT * FROM `genre` WHERE Libelle_Genre = '" + valueInput + "'";
+                ArrayList<ArrayList<String>> listResult = bddManager.select(requeteSelect);
 
+                    if (listResult.isEmpty()) {
+
+                        String requete = "INSERT INTO `genre`(`Libelle_Genre`) VALUES ('" + valueInput + "')";
+                        System.out.println(requete);
+                        bddManager.insert(requete);
+                        bddManager.stop();
+                    }else{
+
+                        System.out.println("Il est déjà présent !");
+                    }
             }
         });
         btnDelete = new Button("Delete");
@@ -115,7 +124,7 @@ public class ViewFormulaireAddGenre {
                 bddManager = new BDDManager();
                 bddManager.start("jdbc:mysql://localhost:3306/dvdtheque", "root", "");
                 String[] chaineCoupe = comboGenres.getValue().split(" ");
-                String requete = "DELETE FROM `genre` WHERE `Id_Genre` ='"+chaineCoupe[0]+"'";
+                String requete = "DELETE FROM `genre` WHERE `Id_Genre` ='" + chaineCoupe[0] + "'";
                 bddManager.delete(requete);
                 bddManager.stop();
             }
