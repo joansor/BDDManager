@@ -1,5 +1,8 @@
+package Tools;
+
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
      Created by cladlink on 12/03/16.
@@ -7,12 +10,16 @@ import java.sql.*;
 
     public class BDDManager {
 
-        //private final String BDD_URL = "jdbc:mysql://localhost:3306/dvdtheque";
-        //private final String BDD_USER = "root";
+       // private final String BDD_URL = "jdbc:mysql://localhost:3306/dvdtheque";
+      //  private final String BDD_USER = "root";
         //private final String BDD_PASSWORD =  "";
         private Connection connection;
         private Statement statement;
 
+
+        public BDDManager(){
+
+        }
         /**
          * start()
          * sert à initialiser la connexion à la BDD
@@ -140,7 +147,32 @@ import java.sql.*;
          *
          * @param maRequete
          */
-        public void select(String maRequete) {
+        public ArrayList<ArrayList<String>>  select(String maRequete) {
+
+            System.out.println(maRequete);
+            ArrayList<ArrayList<String>> resultatDeLaRequete = new ArrayList<>();
+
+            try
+            {
+                ResultSet rs = statement.executeQuery(maRequete); // execution de la requete de type select
+                ResultSetMetaData rsmd = rs.getMetaData(); // ca rend le truc lisible
+                int nbcols = rsmd.getColumnCount(); // ici on récupére le nombre de lignes
+
+                int i=0;
+                while(rs.next()) // tant qu'il y a des lignes à lire
+                {
+                    resultatDeLaRequete.add(new ArrayList<>()); // je crée une arraylist ...
+                    for (int j = 1; j <= nbcols; j++)
+                        resultatDeLaRequete.get(i).add(rs.getString(j)); // ...
+                    i++;
+                }
+            }
+
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            return resultatDeLaRequete;
 
         }
 
