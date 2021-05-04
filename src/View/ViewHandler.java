@@ -15,10 +15,10 @@ public class ViewHandler extends Application {
         primaryStage.setScene(scene);
 
 
-        //ViewFormulaireAddGenre viewFormulaireAddGenre = new ViewFormulaireAddGenre(root);
+        ViewFormulaireAddGenre viewFormulaireAddGenre = new ViewFormulaireAddGenre(root);
        // ViewFormulaireAddFilm viewFormulaireAddFilm = new ViewFormulaireAddFilm(root);
-       ViewFormulaireAddActeur viewFormulaireAddActeur = new ViewFormulaireAddActeur(root);
-       // ViewFormulaireAddRealisateur viewFormulaireAddRealisateur = new ViewFormulaireAddRealisateur(root);
+       //ViewFormulaireAddActeur viewFormulaireAddActeur = new ViewFormulaireAddActeur(root);
+        //ViewFormulaireAddRealisateur viewFormulaireAddRealisateur = new ViewFormulaireAddRealisateur(root);
         //ViewFormulaireAddNationalite viewFormulaireAddNationalite = new ViewFormulaireAddNationalite(root);
 
 
@@ -36,10 +36,10 @@ public class ViewHandler extends Application {
 
 
        // viewFormulaireAddFilm.afficherFormulaireAddFilm();
-        viewFormulaireAddActeur.afficherFormulaireAddActeur();
-       // viewFormulaireAddRealisateur.afficherFormulaireAddRealisateur();
+        //viewFormulaireAddActeur.afficherFormulaireAddActeur();
+      //  viewFormulaireAddRealisateur.afficherFormulaireAddRealisateur();
        // viewFormulaireAddNationalite.afficherFormulaireAddNationalite();
-      //  viewFormulaireAddGenre.afficherFormulaireAddGenre();
+        viewFormulaireAddGenre.afficherFormulaireAddGenre();
 
 
         primaryStage.show();

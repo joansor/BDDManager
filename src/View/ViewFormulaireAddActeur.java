@@ -25,6 +25,7 @@ public class ViewFormulaireAddActeur {
     private BDDManager bddManager;
     private ComboBox<String> comboActeur;
     private Text sousTitre;
+    private Button btnDelete;
 
     public ViewFormulaireAddActeur(Group root) {
         this.root = root;
@@ -72,16 +73,14 @@ public class ViewFormulaireAddActeur {
         comboActeur.setTranslateY(200);
         bddManager = new BDDManager();
         bddManager.start("jdbc:mysql://localhost:3306/dvdtheque","root","");
-        String requete = "SELECT Nom_Acteur, Prenom_Acteur FROM Acteur";
+        String requete = "SELECT * FROM Acteur";
         ArrayList <ArrayList<String>> listResult = bddManager.select(requete);
 
         for (int i = 0; i < listResult.size(); i++) {
 
             System.out.println(listResult.get(i));
-            for (String libelle: listResult.get(i)) {
 
-                comboActeur.getItems().add(libelle);
-            }
+            comboActeur.getItems().add(String.valueOf(listResult.get(i).get(0))+" "+String.valueOf(listResult.get(i).get(1))+" "+ String.valueOf(listResult.get(i).get(2)));
         }
         System.out.println(bddManager.select(requete));
 
@@ -109,6 +108,24 @@ public class ViewFormulaireAddActeur {
 
             }
         });
+        btnDelete = new Button("Delete");
+        btnDelete.setTranslateX(250);
+        btnDelete.setTranslateY(280);
+        btnDelete.setStyle("-fx-background-color : RED;" + "-fx-text-fill : WHITE;" + "-fx-font-size: 20px;");
+        btnDelete.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                String valueComboBox = getComboActeur().getValue();
+                System.out.println(valueComboBox);
+                bddManager = new BDDManager();
+                bddManager.start("jdbc:mysql://localhost:3306/dvdtheque", "root", "");
+                String[] chaineCoupe = comboActeur.getValue().split(" ");
+                String requete = "DELETE FROM `genre` WHERE `Id_Genre` ='"+chaineCoupe[0]+"'";
+                bddManager.delete(requete);
+                bddManager.stop();
+            }
+        });
 
     }
     public void afficherFormulaireAddActeur(){
@@ -122,6 +139,7 @@ public class ViewFormulaireAddActeur {
         root.getChildren().add(titre);
         root.getChildren().add(comboActeur);
         root.getChildren().add(sousTitre);
+        root.getChildren().add(btnDelete);
 
     }
 
@@ -131,5 +149,9 @@ public class ViewFormulaireAddActeur {
 
     public TextField getInputActeurPrenom() {
         return inputActeurPrenom;
+    }
+
+    public ComboBox<String> getComboActeur() {
+        return comboActeur;
     }
 }

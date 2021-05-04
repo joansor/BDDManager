@@ -111,8 +111,6 @@ public class ViewFormulaireAddFilm {
             }
         });
     }
-
-
     public void initBoutton() {
 
         btnValide = new Button("Valider");
@@ -136,6 +134,5 @@ public class ViewFormulaireAddFilm {
         root.getChildren().add(btnselectFile);
         root.getChildren().add(btnValide);
         root.getChildren().add(titre);
-
     }
 }

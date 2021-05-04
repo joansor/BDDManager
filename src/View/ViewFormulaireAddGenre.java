@@ -21,6 +21,7 @@ public class ViewFormulaireAddGenre {
     private Label labelGenre;
     private TextField inputGenre;
     private Button btnValide;
+    private Button btnDelete;
     private Text titre;
     private Text sousTitre;
     private BDDManager bddManager;
@@ -66,16 +67,15 @@ public class ViewFormulaireAddGenre {
         comboGenres.setTranslateY(150);
         bddManager = new BDDManager();
         bddManager.start("jdbc:mysql://localhost:3306/dvdtheque","root","");
-        String requete = "SELECT Libelle_Genre FROM genre";
+        String requete = "SELECT * FROM genre";
         ArrayList <ArrayList<String>> listResult = bddManager.select(requete);
 
         for (int i = 0; i < listResult.size(); i++) {
 
             System.out.println(listResult.get(i));
-            for (String libelle: listResult.get(i)) {
 
-                comboGenres.getItems().add(libelle);
-            }
+            comboGenres.getItems().add(String.valueOf(listResult.get(i).get(0))+" "+(String.valueOf(listResult.get(i).get(1))));
+
         }
         System.out.println(bddManager.select(requete));
 
@@ -102,6 +102,24 @@ public class ViewFormulaireAddGenre {
 
             }
         });
+        btnDelete = new Button("Delete");
+        btnDelete.setTranslateX(250);
+        btnDelete.setTranslateY(280);
+        btnDelete.setStyle("-fx-background-color : RED;" + "-fx-text-fill : WHITE;" + "-fx-font-size: 20px;");
+        btnDelete.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                String valueComboBox = getComboGenres().getValue();
+                System.out.println(valueComboBox);
+                bddManager = new BDDManager();
+                bddManager.start("jdbc:mysql://localhost:3306/dvdtheque", "root", "");
+                String[] chaineCoupe = comboGenres.getValue().split(" ");
+                String requete = "DELETE FROM `genre` WHERE `Id_Genre` ='"+chaineCoupe[0]+"'";
+                bddManager.delete(requete);
+                bddManager.stop();
+            }
+        });
 
 
     }
@@ -114,10 +132,15 @@ public class ViewFormulaireAddGenre {
         root.getChildren().add(titre);
         root.getChildren().add(sousTitre);
         root.getChildren().add(comboGenres);
+        root.getChildren().add(btnDelete);
 
     }
 
     public TextField getInputGenre() {
         return inputGenre;
+    }
+
+    public ComboBox<String> getComboGenres() {
+        return comboGenres;
     }
 }

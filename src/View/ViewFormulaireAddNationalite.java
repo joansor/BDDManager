@@ -23,6 +23,7 @@ public class ViewFormulaireAddNationalite {
     private BDDManager bddManager;
     private Text sousTitre;
     private ComboBox<String> comboNationalite;
+    private Button btnDelete;
 
     public ViewFormulaireAddNationalite(Group root) {
         this.root = root;
@@ -60,10 +61,9 @@ public class ViewFormulaireAddNationalite {
         for (int i = 0; i < listResult.size(); i++) {
 
             System.out.println(listResult.get(i));
-            for (String libelle: listResult.get(i)) {
 
-                comboNationalite.getItems().add(libelle);
-            }
+                comboNationalite.getItems().add(String.valueOf(listResult.get(i).get(0))+" "+(String.valueOf(listResult.get(i).get(1))));
+
         }
         System.out.println(bddManager.select(requete));
     }
@@ -96,8 +96,24 @@ public class ViewFormulaireAddNationalite {
 
             }
         });
+        btnDelete = new Button("Delete");
+        btnDelete.setTranslateX(250);
+        btnDelete.setTranslateY(280);
+        btnDelete.setStyle("-fx-background-color : RED;" + "-fx-text-fill : WHITE;" + "-fx-font-size: 20px;");
+        btnDelete.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
 
-
+                String valueComboBox = getComboNationalite().getValue();
+                System.out.println(valueComboBox);
+                bddManager = new BDDManager();
+                bddManager.start("jdbc:mysql://localhost:3306/dvdtheque", "root", "");
+                String[] chaineCoupe = comboNationalite.getValue().split(" ");
+                String requete = "DELETE FROM `genre` WHERE `Id_Genre` ='"+chaineCoupe[0]+"'";
+                bddManager.delete(requete);
+                bddManager.stop();
+            }
+        });
 
     }
     public void afficherFormulaireAddNationalite(){
@@ -108,10 +124,15 @@ public class ViewFormulaireAddNationalite {
         root.getChildren().add(titre);
         root.getChildren().add(sousTitre);
         root.getChildren().add(comboNationalite);
+        root.getChildren().add(btnDelete);
 
     }
 
     public TextField getInputNationalite() {
         return inputNationalite;
+    }
+
+    public ComboBox<String> getComboNationalite() {
+        return comboNationalite;
     }
 }
