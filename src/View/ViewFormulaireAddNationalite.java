@@ -89,11 +89,18 @@ public class ViewFormulaireAddNationalite {
                 System.out.println(valueInput);
                 bddManager = new BDDManager();
                 bddManager.start("jdbc:mysql://localhost:3306/dvdtheque","root","");
-                String requete = "INSERT INTO `Nationnalite`(`Libelle_Nationnalite`) VALUES ('" + valueInput + "')";
-                System.out.println(requete);
-                bddManager.insert(requete);
-                bddManager.stop();
+                String requeteSelect = "SELECT * FROM `Nationnalite` WHERE Libelle_Nationnalite = '" + valueInput + "'";
+                ArrayList<ArrayList<String>> listResult = bddManager.select(requeteSelect);
 
+                if (listResult.isEmpty()) {
+                    String requete = "INSERT INTO `Nationnalite`(`Libelle_Nationnalite`) VALUES ('" + valueInput + "')";
+                    System.out.println(requete);
+                    bddManager.insert(requete);
+                    bddManager.stop();
+                }else{
+
+                    System.out.println("Il est déjà présent !");
+                }
             }
         });
         btnDelete = new Button("Delete");

@@ -106,10 +106,17 @@ public class ViewFormulaireAddRealisateur {
                 System.out.println(valueInputPrenom);
                 bddManager = new BDDManager();
                 bddManager.start("jdbc:mysql://localhost:3306/dvdtheque", "root", "");
-                String requete = "INSERT INTO `Realisateur`(`Nom_Realisateur`,`Prenom_Realisateur`) VALUES ('" + valueInput + "','" + valueInputPrenom + "')";
-                System.out.println(requete);
-                bddManager.insert(requete);
-                bddManager.stop();
+                String requeteSelect = "SELECT * FROM `Realisateur` WHERE Nom_Realisateur = '" + valueInput + "'OR Prenom_Realisateur ='"+valueInputPrenom+"'";
+                ArrayList<ArrayList<String>> listResult = bddManager.select(requeteSelect);
+                if (listResult.isEmpty()) {
+                    String requete = "INSERT INTO `Realisateur`(`Nom_Realisateur`,`Prenom_Realisateur`) VALUES ('" + valueInput + "','" + valueInputPrenom + "')";
+                    System.out.println(requete);
+                    bddManager.insert(requete);
+                    bddManager.stop();
+                }else{
+
+                    System.out.println("Il est déjà présent !");
+                }
             }
         });
         btnDelete = new Button("Delete");

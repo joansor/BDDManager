@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ViewFormulaireAddActeur {
 
@@ -95,17 +96,23 @@ public class ViewFormulaireAddActeur {
             @Override
             public void handle(MouseEvent event) {
 
-                String valueInput = getInputActeur().getText();
+                String valueInput = getInputActeur().getText().toLowerCase();
                 String valueInputPrenom = getInputActeurPrenom().getText();
                 System.out.println(valueInput);
                 System.out.println(valueInputPrenom);
                 bddManager = new BDDManager();
                 bddManager.start("jdbc:mysql://localhost:3306/dvdtheque","root","");
-                String requete = "INSERT INTO `Acteur`(`Nom_Acteur`,`Prenom_Acteur`) VALUES ('" + valueInput + "','"+valueInputPrenom+"')";
-                System.out.println(requete);
-                bddManager.insert(requete);
-                bddManager.stop();
+                String requeteSelect = "SELECT * FROM `Acteur` WHERE Nom_Acteur = '" + valueInput + "'OR Prenom_Acteur ='"+valueInputPrenom+"'";
+                ArrayList<ArrayList<String>> listResult = bddManager.select(requeteSelect);
+                if (listResult.isEmpty()) {
+                    String requete = "INSERT INTO `Acteur`(`Nom_Acteur`,`Prenom_Acteur`) VALUES ('" + valueInput + "','"+valueInputPrenom+"')";
+                    System.out.println(requete);
+                    bddManager.insert(requete);
+                    bddManager.stop();
+                }else{
 
+                    System.out.println("Il est déjà présent !");
+                }
             }
         });
         btnDelete = new Button("Delete");

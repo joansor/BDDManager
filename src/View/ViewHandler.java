@@ -15,17 +15,15 @@ public class ViewHandler extends Application {
         primaryStage.setScene(scene);
 
 
-        ViewFormulaireAddGenre viewFormulaireAddGenre = new ViewFormulaireAddGenre(root);
-       // ViewFormulaireAddFilm viewFormulaireAddFilm = new ViewFormulaireAddFilm(root);
+       // ViewFormulaireAddGenre viewFormulaireAddGenre = new ViewFormulaireAddGenre(root);
+        ViewFormulaireAddFilm viewFormulaireAddFilm = new ViewFormulaireAddFilm(root);
        //ViewFormulaireAddActeur viewFormulaireAddActeur = new ViewFormulaireAddActeur(root);
         //ViewFormulaireAddRealisateur viewFormulaireAddRealisateur = new ViewFormulaireAddRealisateur(root);
         //ViewFormulaireAddNationalite viewFormulaireAddNationalite = new ViewFormulaireAddNationalite(root);
 
 
-
-
         primaryStage.setWidth(600);
-        primaryStage.setHeight(610);
+        primaryStage.setHeight(660);
         primaryStage.setX(500);
         primaryStage.setY(200);
         primaryStage.setTitle("Formulaire");
@@ -35,12 +33,11 @@ public class ViewHandler extends Application {
         primaryStage.setFullScreen(false);
 
 
-       // viewFormulaireAddFilm.afficherFormulaireAddFilm();
+        viewFormulaireAddFilm.afficherFormulaireAddFilm();
         //viewFormulaireAddActeur.afficherFormulaireAddActeur();
-      //  viewFormulaireAddRealisateur.afficherFormulaireAddRealisateur();
-       // viewFormulaireAddNationalite.afficherFormulaireAddNationalite();
-        viewFormulaireAddGenre.afficherFormulaireAddGenre();
-
+        //viewFormulaireAddRealisateur.afficherFormulaireAddRealisateur();
+        //viewFormulaireAddNationalite.afficherFormulaireAddNationalite();
+        //viewFormulaireAddGenre.afficherFormulaireAddGenre();
 
         primaryStage.show();
 
