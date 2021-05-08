@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class ViewHandler extends Application {
+    private ViewMenu vm;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -15,6 +17,8 @@ public class ViewHandler extends Application {
         primaryStage.setScene(scene);
 
 
+
+        vm = new ViewMenu(root);
        // ViewFormulaireAddGenre viewFormulaireAddGenre = new ViewFormulaireAddGenre(root);
         ViewFormulaireAddFilm viewFormulaireAddFilm = new ViewFormulaireAddFilm(root);
        //ViewFormulaireAddActeur viewFormulaireAddActeur = new ViewFormulaireAddActeur(root);
