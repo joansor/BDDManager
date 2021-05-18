@@ -1,5 +1,6 @@
 package View;
 
+import Controller.ControllerFormulaireAddNationalite;
 import Tools.BDDManager;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -24,9 +25,12 @@ public class ViewFormulaireAddNationalite {
     private Text sousTitre;
     private ComboBox<String> comboNationalite;
     private Button btnDelete;
+    private ViewHandler vh;
+    private ControllerFormulaireAddNationalite controllerFormulaireAddNationalite;
 
-    public ViewFormulaireAddNationalite(Group root) {
+    public ViewFormulaireAddNationalite(Group root,ViewHandler vh) {
         this.root = root;
+        this.controllerFormulaireAddNationalite = new ControllerFormulaireAddNationalite(this,vh);
         initLabel();
         initInput();
         initBoutton();

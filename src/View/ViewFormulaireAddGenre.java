@@ -1,5 +1,6 @@
 package View;
 
+import Controller.ControllerFormulaireAddGenre;
 import Tools.BDDManager;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -23,10 +24,12 @@ public class ViewFormulaireAddGenre {
     private Text sousTitre;
     private BDDManager bddManager;
     private ComboBox<String> comboGenres;
+    private ViewHandler vh;
+    private ControllerFormulaireAddGenre controllerFormulaireAddGenre;
 
-
-    public ViewFormulaireAddGenre(Group root) {
+    public ViewFormulaireAddGenre(Group root,ViewHandler vh) {
         this.root = root;
+        this.controllerFormulaireAddGenre = new ControllerFormulaireAddGenre(vh,this);
         initLabel();
         initInput();
         initBoutton();

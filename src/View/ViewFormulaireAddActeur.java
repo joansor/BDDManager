@@ -1,5 +1,6 @@
 package View;
 
+import Controller.ControllerFormulaireAddActeur;
 import Tools.BDDManager;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -12,7 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Locale;
+
 
 public class ViewFormulaireAddActeur {
 
@@ -27,9 +28,12 @@ public class ViewFormulaireAddActeur {
     private ComboBox<String> comboActeur;
     private Text sousTitre;
     private Button btnDelete;
+    private ViewHandler vh;
+    private ControllerFormulaireAddActeur controllerFormulaireAddActeur;
+    public ViewFormulaireAddActeur(Group root,ViewHandler vh) {
 
-    public ViewFormulaireAddActeur(Group root) {
         this.root = root;
+        this.controllerFormulaireAddActeur = new ControllerFormulaireAddActeur(vh,this);
         initLabel();
         initInput();
         initBoutton();

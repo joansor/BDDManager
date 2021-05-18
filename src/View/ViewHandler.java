@@ -18,9 +18,9 @@ public class ViewHandler extends Application {
 
 
 
-        vm = new ViewMenu(root);
+        vm = new ViewMenu(root,this);
        // ViewFormulaireAddGenre viewFormulaireAddGenre = new ViewFormulaireAddGenre(root);
-        ViewFormulaireAddFilm viewFormulaireAddFilm = new ViewFormulaireAddFilm(root);
+        ViewFormulaireAddFilm viewFormulaireAddFilm = new ViewFormulaireAddFilm(root,this);
        //ViewFormulaireAddActeur viewFormulaireAddActeur = new ViewFormulaireAddActeur(root);
         //ViewFormulaireAddRealisateur viewFormulaireAddRealisateur = new ViewFormulaireAddRealisateur(root);
         //ViewFormulaireAddNationalite viewFormulaireAddNationalite = new ViewFormulaireAddNationalite(root);

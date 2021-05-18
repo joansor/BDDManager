@@ -1,5 +1,6 @@
 package View;
 
+import Controller.ControllerFormulaireAddFilm;
 import Tools.BDDManager;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -36,9 +37,13 @@ public class ViewFormulaireAddFilm {
     private Text sousTitre;
     private Button btnDelete;
     private HashMap<String, Integer> tableFilm;
+    private ViewHandler vh;
+    private ControllerFormulaireAddFilm controllerFormulaireAddFilm;
 
-    public ViewFormulaireAddFilm(Group root) {
+    public ViewFormulaireAddFilm(Group root,ViewHandler vh) {
+
         this.root = root;
+        this.controllerFormulaireAddFilm = new ControllerFormulaireAddFilm(vh,this);
 
         initLabel();
         initInput();

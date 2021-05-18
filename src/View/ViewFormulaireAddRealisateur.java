@@ -1,5 +1,6 @@
 package View;
 
+import Controller.ControllerFormulaireAddRealisateur;
 import Tools.BDDManager;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -27,9 +28,12 @@ public class ViewFormulaireAddRealisateur {
     private BDDManager bddManager;
     private ComboBox<String> comboRealisateur;
     private Text sousTitre;
+    private ViewHandler vh;
+    private ControllerFormulaireAddRealisateur controllerFormulaireAddRealisateur;
 
-    public ViewFormulaireAddRealisateur(Group root) {
+    public ViewFormulaireAddRealisateur(Group root, ViewHandler vh) {
         this.root = root;
+        this.controllerFormulaireAddRealisateur = new ControllerFormulaireAddRealisateur(vh,this);
         initLabel();
         initInput();
         initBoutton();
